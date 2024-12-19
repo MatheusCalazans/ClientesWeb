@@ -1,0 +1,87 @@
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-body">
+
+
+            <h4>Cadastro de clientes</h4>
+            <p>Preencha os campos para incluir um cliente.</p>
+
+
+            <!-- local para exibir a mensagem -->
+            <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngIf="mensagem != ''">
+                <strong>{{ mensagem }}</strong>
+                <button type="button" class="btn-close" (click)="mensagem = ''" aria-label="Close"></button>
+            </div>
+
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+                <div class="mb-3">
+                    <label>Informe o nome do cliente:</label>
+                    <input type="text" class="form-control"
+                        formControlName="nome"
+                        placeholder="Digite o nome aqui."/>
+                    <span class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
+                        Por favor, informe o nome do cliente com 8 a 150 caracteres.
+                    </span>
+                </div>
+
+
+                <div class="mb-3">
+                    <label>Informe o email do cliente:</label>
+                    <input type="text" class="form-control"
+                        formControlName="email"
+                        placeholder="Digite o email aqui."/>
+                    <span class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+                        Por favor, informe um endereço de email válido.
+                    </span>
+                </div>
+
+
+                <div class="mb-3">
+                    <label>Informe o cpf do cliente:</label>
+                    <input type="text" class="form-control"
+                        formControlName="cpf"
+                        placeholder="Digite o cpf aqui."/>
+                    <span class="text-danger" *ngIf="f['cpf'].touched && f['cpf'].invalid">
+                        Por favor, informe o cpf com 11 números.
+                    </span>
+                </div>
+                <div class="mb=3">
+                    <label>Selecione a categoria:</label>
+                    <select class="form-select" formControlName="categoria">
+                       
+                        <option value="">Escolha uma opção</option>
+                        <option value="1">Cliente Comum</option>
+                        <option value="2">Cliente preferencial</option>
+                        <option value="3">Cliente empresa</option>
+                        <option value="4">Cliente VIP</option>
+
+                        
+
+                    </select>
+                    <span class="text-danger" *ngIf="f['categoria'].touched && f['categoria'].invalid">
+                        Por favor, selecione a categoria do cliente.
+
+                    </span>
+
+                </div>
+
+
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success"
+                        [disabled]="form.invalid"
+                        value="Realizar Cadastro"/>
+                </div>
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,82 @@
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-body">
+
+
+            <h4>Consulta de clientes</h4>
+            <p>Listagem de clientes cadastrados no sistema.</p>
+
+
+            <div class="text-center">
+                <pagination-controls
+                    previousLabel="Página anterior"
+                    nextLabel="Próxima página"
+                    (pageChange)="pageChange($event)"
+                />
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome do cliente</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Categoria</th>
+                            <th>Data de criação</th>
+                            <th>Data de alteração</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of clientes | paginate: { itemsPerPage: 5, currentPage: pagina }">
+                            <td> {{ c.nome | uppercase }} </td>
+                            <td> {{ c.email | lowercase }} </td>
+                            <td> {{ c.cpf }} </td>
+                            <td>
+                                <div *ngIf="c.categoria == 1" class="badge bg-primary">
+                                    COMUM
+                                </div>  
+                                <div *ngIf="c.categoria == 2" class="badge bg-success">
+                                    PREFERENCIAL
+                                </div>  
+                                <div *ngIf="c.categoria == 3" class="badge bg-warning">
+                                    EMPRESA
+                                </div>  
+                                <div *ngIf="c.categoria == 4" class="badge bg-danger">
+                                    VIP
+                                </div>  
+                            </td>
+                            <td> {{ c.dataCriacao | date : 'dd/MM/yyyy HH:mm' }} </td>
+                            <td> {{ c.dataUltimaAlteracao | date : 'dd/MM/yyyy HH:mm' }} </td>
+                            <td>
+                                <button [routerLink]="['/clientes/edicao', c.id]"
+                                    class="btn btn-sm btn-primary me-1">
+                                    Editar
+                                </button>
+
+
+                                <button (click)="onDelete(c.id)"
+                                    class="btn btn-sm btn-danger me-1">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                Quantidade de clientes: {{ clientes.length }}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
